@@ -1,0 +1,19 @@
+
+]
+java:S1128";Remove this unused import 'javafx.scene.layout.BorderPane'.(Îî¥üÿÿÿÿ8úê•ìš1
+R
+java:S1128"0Remove this unused import 'java.awt.FlowLayout'.(Íğç¢ÿÿÿÿÿ8ƒ†Šìš1
+M
+java:S1128"+Remove this unused import 'java.awt.event'.(Ã®ÎÙÿÿÿÿÿ8ƒ†Šìš1
+F
+java:S1128")Remove this unused import 'java.io.File'.(†Ğ¥Å8ƒ†Šìš1
+J
+java:S1128"(Remove this unused import 'javax.swing'.(Ìí¿Üüÿÿÿÿ8ƒ†Šìš1
+@
+java:S1128"Remove this duplicated import.(À‡ô³úÿÿÿÿ8ƒ†Šìš1
+;
+java:S1128"Remove this duplicated import.(Õü²8úê•ìš1
+@
+java:S1128"Remove this duplicated import.(æÄ¸²úÿÿÿÿ8Øáìš1
+@
+java:S1128"Remove this duplicated import.(ªº»Úıÿÿÿÿ8Øáìš1

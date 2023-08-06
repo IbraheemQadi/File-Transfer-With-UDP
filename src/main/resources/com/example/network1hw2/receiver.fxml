@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.network1hw2.ReceiverController">
+   <children>
+      <TextField fx:id="destination" alignment="TOP_LEFT" editable="false" layoutX="208.0" layoutY="40.0" maxWidth="468.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="318.0" style="-fx-background-color: transpar; -fx-border-color: #7156dd; -fx-text-fill: #7156dd; -fx-border-width: 0px 0px  2px 0px;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <Button fx:id="btnChooseDest" layoutX="21.0" layoutY="59.0" mnemonicParsing="false" onAction="#onChooseDestClick" prefHeight="27.0" prefWidth="161.0" style="-fx-background-radius: 50px; -fx-background-color: #7e65d9; -fx-border-radius: 50px; -fx-border-color: black;" text="Choose File Destination" textFill="WHITE" />
+      <TextField fx:id="port" alignment="TOP_LEFT" layoutX="208.0" layoutY="131.0" prefHeight="27.0" prefWidth="318.0" promptText="Port" style="-fx-background-color: transpar; -fx-border-color: #7156dd; -fx-text-fill: #7156dd;" />
+      <Label fx:id="lab1" layoutX="50.0" layoutY="131.0" text="Port Number" textFill="#7156dd">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnRunServer" layoutX="208.0" layoutY="187.0" mnemonicParsing="false" onAction="#onRunServerClick" prefHeight="38.0" prefWidth="318.0" style="-fx-background-radius: 170px; -fx-background-color: Green; -fx-border-radius: 200px; -fx-border-color: black;" text="Run Server" textFill="WHITE" />
+      <Label fx:id="serverWaiting" layoutX="294.0" layoutY="239.0" text="Server is waiting ..." textFill="#7156dd" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
