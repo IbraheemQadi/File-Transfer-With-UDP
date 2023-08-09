@@ -2,13 +2,11 @@ package com.example.network1hw2;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import javax.swing.*;
 import java.io.File;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class SenderController {
@@ -27,6 +25,19 @@ public class SenderController {
 
     @FXML
     private TextField serverPort;
+
+    @FXML
+    private Label fileSize;
+
+    @FXML
+    private Label resendPackets;
+
+    @FXML
+    private Label sentPacktes;
+
+    @FXML
+    private Label fileReceived;
+
 
     //    --------------------------------------------------------------------
     File file;
@@ -48,8 +59,12 @@ public class SenderController {
         if (r == JFileChooser.APPROVE_OPTION) { // If a file is choosed
             file = jfc.getSelectedFile();
             filePath.setText(file.getName());
+            fileSize.setText(" " + file.length() / 1000 + " KB");
+            fileReceived.setText("No");
         }
 
+        sentPacktes.setText("");
+        resendPackets.setText("");
     }
 
     @FXML
@@ -59,16 +74,28 @@ public class SenderController {
             try {
                 String host = serverIP.getText();
                 int port = Integer.parseInt(serverPort.getText());
+                AtomicInteger countSend = new AtomicInteger();
+                AtomicInteger countReSend = new AtomicInteger();
+                AtomicInteger sendRatio = new AtomicInteger();
 
                 Thread udpThread = new Thread(() -> {
                     FileSend fileSend = new FileSend();
                     fileSend.sendFile(host, port, file);
+                    countSend.set(fileSend.countSendPackets);
+                    countReSend.set(fileSend.countResendPackets);
+                    sendRatio.set((fileSend.sendRatio));
                     fileSend = null;
                     System.gc();
+
                 });
 
                 udpThread.start();
-
+                udpThread.join();
+                if (sendRatio.get() == 100) {
+                    sentPacktes.setText("" + countSend.get());
+                    resendPackets.setText("" + countReSend.get());
+                    fileReceived.setText("Yes");
+                }
 
 
             } catch (Exception ex) {

@@ -1,8 +1,5 @@
 package com.example.network1hw2;
 
-import javafx.scene.control.Alert;
-
-import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,18 +7,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-/**
- * @author Absalom Herrera
- */
 public class FileReceive {
-
-
-//    public static void main(String[] args) {
-//
-//        int port = 6789; // Change this to the desired port
-//        String serverRoute = "E:\\جامعة\\3-سنة ثالثة\\فصل صيفي 2022-2023\\Interview\\Java\\untitled"; // Change this to the desired directory route (Where the file will be stored)
-//        createFile(port, serverRoute); // Creating the file
-//    }
 
     void receiveFile(int port, String fileDest) {
         System.out.println("Ready to receive!");
@@ -31,16 +17,18 @@ public class FileReceive {
     private static void createFile(int port, String serverRoute) {
         try {
             DatagramSocket socket = new DatagramSocket(port);
-            byte[] receiveFileName = new byte[1024]; // Where we store the data of datagram of the name
+            // To receive the file name
+            byte[] receiveFileName = new byte[1024];
             DatagramPacket receiveFileNamePacket = new DatagramPacket(receiveFileName, receiveFileName.length);
-            socket.receive(receiveFileNamePacket); // Receive the datagram with the name of the file
+            socket.receive(receiveFileNamePacket);
             System.out.println("Receiving file name");
             byte[] data = receiveFileNamePacket.getData(); // Reading the name in bytes
-            String fileName = new String(data, 0, receiveFileNamePacket.getLength()); // Converting the name to string
+            String fileName = new String(data, 0, receiveFileNamePacket.getLength()); //  name => string
 
+            // Create the file and the output stream
             System.out.println("Creating file");
-            File file = new File(serverRoute + "\\" + fileName); // Creating the file
-            FileOutputStream outToFile = new FileOutputStream(file); // Creating the stream through which we write the file content
+            File file = new File(serverRoute + "\\" + fileName);
+            FileOutputStream outToFile = new FileOutputStream(file);
 
             receiveFile(outToFile, socket); // Receiving the file
         } catch (Exception ex) {
@@ -53,21 +41,20 @@ public class FileReceive {
         System.out.println("Receiving file");
         boolean endOfFile; // Have we reached end of file
         int sequenceNumber = 0; // Order of sequences
-        int foundLast = 0; // The las sequence found
+        int foundLast = 0; // The last sequence found
 
         while (true) {
-            byte[] message = new byte[1024]; // Where the data from the received datagram is stored
-            byte[] fileByteArray = new byte[1021]; // Where we store the data to be writen to the file
+            byte[] message = new byte[1024]; // received datagram
+            byte[] fileByteArray = new byte[1021]; //  data to be writen to the file
 
             // Receive packet and retrieve the data
             DatagramPacket receivedPacket = new DatagramPacket(message, message.length);
             socket.receive(receivedPacket);
             message = receivedPacket.getData(); // Data to be written to the file
 
-            // Get port and address for sending acknowledgment
+            // Port and IP for sender
             InetAddress address = receivedPacket.getAddress();
             int port = receivedPacket.getPort();
-
 
             // Retrieve sequence number
             sequenceNumber = ((message[0] & 0xff) << 8) + (message[1] & 0xff);
